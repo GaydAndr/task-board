@@ -70,7 +70,7 @@ export class TasksService {
     const isExist = await this.taskRepository.findOne({
       where: {id}
     })
-    if (!isExist) throw new NotFoundException('Task not found')
+    if (!isExist) throw new NotFoundException('TaskCard not found')
   }
 
   validUUID(id: string) {
