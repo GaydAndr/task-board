@@ -4,6 +4,7 @@ import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks.ts";
 import {taskGetAll, updateCardStatus} from "../../../../store/card/cardOperation.ts";
+import {getBoard} from "../../../../store/board/boardOperation.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -65,7 +66,7 @@ const CardMoveTo = ({id}:{id:string}) => {
   const moveTo = (status:string) => {
     handleClose();
     dispatch(updateCardStatus({id, "status":status}))
-    // dispatch(taskGetAll(id))
+    dispatch(getBoard(id))
   };
 
   return (
