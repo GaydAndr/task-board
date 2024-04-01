@@ -30,17 +30,10 @@ const CardForm = ({name: initialName}: { name: string }) => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            console.log(name)
-            console.log({
-              ...formJson,
-              "status": name,
-              board: currentBoard
-            });
             dispatch(taskCreateNew({
-              ...formJson,
               "task_name": formJson.taskName,
               "status": name,
-              "due_date": formJson.dueDate,
+              "due_date": formJson.due_date,
               "priority": formJson.priority,
               "description": formJson.description,
               "board": currentBoard
