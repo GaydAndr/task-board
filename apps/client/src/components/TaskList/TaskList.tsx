@@ -28,8 +28,8 @@ const TaskList = (prop: Prop) => {
         pl={1}
         pr={2}
       >
-        {boardTask?.map(task => (
-          
+        {boardTask?.filter(task => task.status === prop.name).map(task => (
+
           <TaskCard key={task.id} dataTask={task}/>
         ))}
       </Stack>
