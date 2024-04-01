@@ -45,6 +45,9 @@ export class SubListService {
       where: {
         board: {id},
       },
+      relations:{
+        board:true
+      }
     });
   }
 

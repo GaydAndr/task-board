@@ -1,7 +1,13 @@
 import {Stack, Typography} from "@mui/material";
 import TaskListMenu from "../TaskListMenu/TaskListMenu.tsx";
 
-const TaskListHeader = () => {
+interface Prop {
+  name: string
+  amount: number
+  id: string
+}
+
+const TaskListHeader = ({id, name, amount}: Prop) => {
   return (
     <Stack
       direction={"row"}
@@ -13,12 +19,12 @@ const TaskListHeader = () => {
       alignItems={"center"}
     >
       <Typography variant="h5" flexGrow={1} textAlign={"left"}>
-        NameList
+        {name}
       </Typography>
       <Typography variant="h5">
-        99
+        {amount}
       </Typography>
-      <TaskListMenu/>
+      <TaskListMenu id={id}/>
     </Stack>
   );
 };

@@ -3,8 +3,8 @@ import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {useState} from "react";
 import dayjs, {Dayjs} from "dayjs";
 
-const CardDatePicker = () => {
-  const [value, setValue] = useState<null | Dayjs>(dayjs('2022-04-17'));
+const CardDatePicker = ({name}: {name: string}) => {
+  const [value, setValue] = useState<null | Dayjs>(dayjs());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -12,6 +12,7 @@ const CardDatePicker = () => {
         label="Controlled picker"
         value={value}
         onChange={(newValue) => setValue(newValue)}
+        name={name}
       />
     </LocalizationProvider>
   );

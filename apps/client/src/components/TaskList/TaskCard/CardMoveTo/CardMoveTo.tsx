@@ -2,6 +2,7 @@ import {styled, alpha} from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
+import {useAppSelector} from "../../../../hooks/hooks.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -47,6 +48,9 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 const CardMoveTo = () => {
+  const categoryList=useAppSelector(
+    state => state.category.categoryList
+  )
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -83,18 +87,14 @@ const CardMoveTo = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          Duplicate
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          Archive
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          More
-        </MenuItem>
+        {
+          categoryList?.map(el=>(
+            <MenuItem key={el.id} onClick={handleClose} disableRipple>
+              {el.name}
+            </MenuItem>
+          ))
+        }
+
       </StyledMenu>
     </>
   );

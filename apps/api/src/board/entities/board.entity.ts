@@ -1,11 +1,13 @@
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn} from "typeorm";
 import {History} from "../../history/entities/history.entity";
 import {Task} from "../../tasks/entities/task.entity";
 import {SubList} from "../../sub_list/entities/sub_list.entity";
 
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn('uuid',{name:'board_id'})
+  // @PrimaryGeneratedColumn('uuid',{name:'board_id'})
+  @Column()
+  @PrimaryColumn({name:'board_id'})
   id: string
 
   @Column()
@@ -30,7 +32,7 @@ export class Board {
     (sub_list)=>sub_list.board,
     {onDelete: "CASCADE", nullable: true},
   )
-  sud_list: SubList[]
+  sud_list: SubList[] // bug
 
   @CreateDateColumn()
   createdAt: Date

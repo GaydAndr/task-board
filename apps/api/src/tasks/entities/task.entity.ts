@@ -24,7 +24,7 @@ export class Task {
   status: string
 
   @Column()
-  due_date: Date
+  due_date: string
 
   @Column()
   priority: string

@@ -3,23 +3,26 @@ import CardMenu from "./CardMenu/CardMenu.tsx";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import CardMoveTo from "./CardMoveTo/CardMoveTo.tsx";
+import {ITaskResponse} from "../../../types/types.ts";
+import dayjs from 'dayjs';
 
-const TaskCard = () => {
-
+interface Prop{
+  dataTask:ITaskResponse
+}
+const TaskCard = ({dataTask}:Prop) => {
   return (
     <Card
       variant={"outlined"}
       sx={{
         height: 'auto',
         overflow: 'visible'
-        // minHeight: '300px'
       }}
     >
       <CardHeader
         action={
           <CardMenu/>
         }
-        title="Shrimp  Paella"
+        title={dataTask.task_name}
         sx={{
           textAlign: 'left'
         }}
@@ -36,11 +39,7 @@ const TaskCard = () => {
             color="text.secondary"
             textAlign={"justify"}
           >
-            to1 cup of frozen peas along with the mussels,
-            if you your guests. Add 1 cup of frozen peas along with the mussels,
-            if you your guests. Add 1 cup of frozen peas along with the mussels,
-            if you your guests. Add 1 cup of frozen peas along with the mussels,
-            if you your guests. Add 1 cup of frozen peas along with the mussels,
+            {dataTask.description}
           </Typography>
 
         </CardContent>
@@ -59,7 +58,7 @@ const TaskCard = () => {
               variant="h6"
               color="text.secondary"
             >
-              Date
+              {dayjs(dataTask.due_date).format('DD/MM/YYYY')}
             </Typography>
           </Stack>
           <Stack
@@ -80,7 +79,7 @@ const TaskCard = () => {
               variant="h6"
               color="text.secondary"
             >
-              Low
+              {dataTask.priority}
             </Typography>
           </Stack>
         </CardContent>

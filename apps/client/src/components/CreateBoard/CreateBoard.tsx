@@ -1,20 +1,21 @@
 import AddIcon from "@mui/icons-material/Add";
 import {Button, Stack, TextField} from "@mui/material";
 import {useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
-import {categoryCreateNew} from "../../store/category/categoryOperation.ts";
+import {useAppDispatch} from "../../hooks/hooks.ts";
+import {postBoard} from "../../store/board/boardOperation.ts";
+import {categoryCreateDefault} from "../../store/category/categoryOperation.ts";
+import { v4 as uuidv4 } from 'uuid';
 
-const AddColumn = () => {
+const CreateBoard = () => {
   const dispatch = useAppDispatch()
   const [active, setActive] = useState(false)
-  const [categoryTitle, setCategoryTitle] = useState('');
-const boardId=useAppSelector(
-  state => state.board.currentBoard?.id
-)
+  const [boardTitle, setBoardTitle] = useState('');
 
   const handleCreateClick = () => {
-    if (active && boardId) {
-      dispatch(categoryCreateNew({id:boardId, name: categoryTitle }))
+    const boardId = uuidv4();
+    if (active) {
+      dispatch(postBoard({boardTitle, boardId}))
+      dispatch(categoryCreateDefault({"board": boardId}))
     }
     setActive(!active);
   };
@@ -35,12 +36,12 @@ const boardId=useAppSelector(
           <TextField
             id="outlined-controlled"
             label="Controlled"
-            value={categoryTitle}
+            value={boardTitle}
             size="small"
 
 
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCategoryTitle(event.target.value);
+              setBoardTitle(event.target.value);
             }}
           />
           <Button
@@ -54,21 +55,14 @@ const boardId=useAppSelector(
         :
         <Button
           variant="outlined"
-          disableElevation
-          size="large"
-          fullWidth
-          sx={{
-            color: "#232323",
-            borderStyle: 'dashed'
-          }}
+          startIcon={<AddIcon/>}
           onClick={handleCreateClick}
-          startIcon={ <AddIcon/>}
         >
-          Create new category
+          Create new list
         </Button>
       }
     </>
   );
 };
 
-export default AddColumn;
+export default CreateBoard;

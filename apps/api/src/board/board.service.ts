@@ -16,13 +16,20 @@ export class BoardService {
 
   async create(createBoardDto: CreateBoardDto) {
     const board = await this.boardRepository.save({
-      name: createBoardDto.name
+      name: createBoardDto.name,
+      id: createBoardDto.id
     })
     return {board}
   }
 
   async findAll() {
-    return await this.boardRepository.find()
+    return await this.boardRepository.find({
+      relations:{
+        sud_list:true,
+        history:true,
+        tasks_list:true
+      }
+    })
   }
 
   async findOne(id: string) {
@@ -38,7 +45,8 @@ export class BoardService {
       },
       relations: {
         history: true,
-        tasks_list: true
+        tasks_list: true,
+        sud_list:true
       }
     })
   }

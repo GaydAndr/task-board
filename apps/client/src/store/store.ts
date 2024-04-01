@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 import {
   persistStore,
   persistReducer,
@@ -11,21 +11,38 @@ import {
 } from 'redux-persist'
 import storage from "redux-persist/lib/storage";
 import uiSlice from "./ui/ui_slice.ts";
+import boardSlice from "./board/boardSlice.ts";
+import categorySlice from "./category/categorySlice.ts";
+import taskSlice from "./card/cardSlice.ts";
 
 
 const persistUiConfig = {
   key: 'ui',
   storage,
-  // whitelist: ['titleInput', 'sprintForm']
+}
+const persistBoardConfig = {
+  key: 'board',
+  storage,
+}
+const persistCategoryConfig = {
+  key: 'category',
+  storage,
+}
+const persistTaskConfig = {
+  key: 'task',
+  storage,
 }
 
 const UiReducer = persistReducer(persistUiConfig, uiSlice.reducer);
+const BoardReducer = persistReducer(persistBoardConfig, boardSlice.reducer);
+const CategoryReducer = persistReducer(persistCategoryConfig, categorySlice.reducer);
+const TaskReducer = persistReducer(persistTaskConfig, taskSlice.reducer);
 export const store = configureStore({
   reducer: {
     ui: UiReducer,
-    // posts: postsReducer,
-    // comments: commentsReducer,
-    // users: usersReducer,
+    board: BoardReducer,
+    category: CategoryReducer,
+    task: TaskReducer
   },
   devTools: process.env.NODE_ENV === 'development',
   middleware: getDefaultMiddleware =>
@@ -36,7 +53,7 @@ export const store = configureStore({
     }),
 })
 
-let persistor=persistStore(store)
+let persistor = persistStore(store)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

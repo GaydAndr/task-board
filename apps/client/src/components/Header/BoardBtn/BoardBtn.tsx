@@ -1,7 +1,7 @@
 import {Button, Stack} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
 import {useAppDispatch} from "../../../hooks/hooks.ts";
 import {uiAction} from "../../../store/ui/ui_slice.ts";
+import CreateBoard from "../../CreateBoard/CreateBoard.tsx";
 
 const BoardBtn = () => {
   const dispatch = useAppDispatch()
@@ -10,12 +10,7 @@ const BoardBtn = () => {
   }
   return (
     <Stack spacing={2} direction="row">
-      <Button
-        variant="outlined"
-        startIcon={<AddIcon/>}
-      >
-          Create new list
-      </Button>
+      <CreateBoard/>
       <Button variant="contained" onClick={handlerHistoryBtn}>History</Button>
     </Stack>
   );

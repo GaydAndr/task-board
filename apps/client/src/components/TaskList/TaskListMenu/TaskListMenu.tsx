@@ -4,8 +4,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddIcon from '@mui/icons-material/Add';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {useAppDispatch} from "../../../hooks/hooks.ts";
+import {deleteCategory} from "../../../store/category/categoryOperation.ts";
 
-const TaskListMenu = () => {
+
+interface Prop {
+  id: string
+}
+
+const TaskListMenu = ({id}: Prop) => {
+  const dispatch = useAppDispatch()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -14,6 +22,11 @@ const TaskListMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleDelete = () => {
+    dispatch(deleteCategory(id))
+  };
+
+
   return (
     <>
       <IconButton
@@ -47,9 +60,9 @@ const TaskListMenu = () => {
           </ListItemIcon>
           Add new card
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleDelete}>
           <ListItemIcon>
-            <DeleteOutlineIcon />
+            <DeleteOutlineIcon/>
           </ListItemIcon>
           Delete
         </MenuItem>

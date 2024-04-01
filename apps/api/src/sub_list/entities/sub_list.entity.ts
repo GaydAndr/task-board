@@ -11,7 +11,7 @@ export class SubList {
 
   @ManyToOne(
     () => Board,
-    (board) => board.sud_list,
+    (board) => board.sud_list, //bug
     {onDelete: "CASCADE"}
   )
   @JoinColumn({name: 'board_id'})
