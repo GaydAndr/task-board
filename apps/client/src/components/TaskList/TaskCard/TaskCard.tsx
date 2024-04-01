@@ -85,7 +85,7 @@ const TaskCard = ({dataTask}:Prop) => {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <CardMoveTo/>
+        <CardMoveTo id={dataTask.id}/>
       </CardActions>
     </Card>
   );

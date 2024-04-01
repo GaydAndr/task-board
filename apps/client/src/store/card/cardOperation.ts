@@ -30,7 +30,20 @@ export const taskCreateNew = createAsyncThunk<
     }
   }
 )
-
+export const updateCardStatus = createAsyncThunk(
+  'tasks:id',
+  async ({id, status}: { id: string, status: string }) => {
+    try {
+      const {data} = await instance.patch(
+        `tasks/${id}`,
+        {status }
+      )
+      return data
+    } catch (error: any) {
+      console.error(error)
+    }
+  }
+)
 export const deleteTask = createAsyncThunk<string, string>(
   'tasks:id',
   async (taskId: string) => {

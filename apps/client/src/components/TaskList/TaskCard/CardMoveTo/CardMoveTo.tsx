@@ -2,7 +2,8 @@ import {styled, alpha} from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
-import {useAppSelector} from "../../../../hooks/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks.ts";
+import {taskGetAll, updateCardStatus} from "../../../../store/card/cardOperation.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -47,10 +48,12 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-const CardMoveTo = () => {
+const CardMoveTo = ({id}:{id:string}) => {
+  const dispatch = useAppDispatch()
   const categoryList=useAppSelector(
     state => state.category.categoryList
   )
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -58,6 +61,11 @@ const CardMoveTo = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const moveTo = (status:string) => {
+    handleClose();
+    dispatch(updateCardStatus({id, "status":status}))
+    // dispatch(taskGetAll(id))
   };
 
   return (
@@ -89,7 +97,7 @@ const CardMoveTo = () => {
       >
         {
           categoryList?.map(el=>(
-            <MenuItem key={el.id} onClick={handleClose} disableRipple>
+            <MenuItem key={el.id} onClick={()=>moveTo(el.name)} disableRipple>
               {el.name}
             </MenuItem>
           ))

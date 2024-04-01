@@ -56,7 +56,8 @@ export class TasksService {
   async update(id: string, updateTaskDto: UpdateTaskDto) {
     this.validUUID(id)
     await this.isExist(id)
-    return await this.taskRepository.update(id, updateTaskDto);
+    await this.taskRepository.update(id, updateTaskDto);
+    return 200
   }
 
   async remove(id: string) {
