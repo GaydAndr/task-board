@@ -5,23 +5,25 @@ import CardDescription from "./CardDescription/CardDescription.tsx";
 import CardPriority from "./CardPriority/CardPriority.tsx";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
 import {uiAction} from "../../store/ui/ui_slice.ts";
-import {useState} from "react";
 import {taskCreateNew} from "../../store/card/cardOperation.ts";
+import {categoryAction} from "../../store/category/categorySlice.ts";
 
-const CardForm = ({name: initialName}: { name: string }) => {
-  const [name] = useState(initialName);
+const CardForm = () => {
   const dispatch = useAppDispatch()
   const cardFormState = useAppSelector(state => state.ui.cardForm)
   const currentBoard = useAppSelector(
     state => state.board.currentBoard
   )
+  const currentCategory=useAppSelector(
+    state => state.category.currentCategory
+  )
   const handleClose = () => {
     dispatch(uiAction.toggleCardForm(false))
+    dispatch((categoryAction.removeCurrentCategory()))
   };
   return (
     <>
       <Dialog
-        id={name}
         open={cardFormState}
         onClose={handleClose}
         PaperProps={{
@@ -32,7 +34,7 @@ const CardForm = ({name: initialName}: { name: string }) => {
             const formJson = Object.fromEntries((formData as any).entries());
             dispatch(taskCreateNew({
               "task_name": formJson.taskName,
-              "status": name,
+              "status": currentCategory,
               "due_date": formJson.due_date,
               "priority": formJson.priority,
               "description": formJson.description,

@@ -19,7 +19,6 @@ export const taskCreateNew = createAsyncThunk<
 >(
   'tasks',
   async (taskData: ITaskPost) => {
-    console.log(taskData)
     try {
       const {data} = await instance.post<ITaskResponse>(
         `tasks`,

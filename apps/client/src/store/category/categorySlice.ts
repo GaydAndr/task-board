@@ -6,10 +6,12 @@ import {ICategory} from "../../types/types.ts";
 
 interface IStoreCategory {
   categoryList: ICategory[]
+  currentCategory: string
 }
 
 const initialState: IStoreCategory = {
   categoryList: [],
+  currentCategory: ''
 }
 
 const categorySlice = createSlice({
@@ -18,7 +20,13 @@ const categorySlice = createSlice({
   reducers: {
     setCategory: (state, {payload}) => {
       state.categoryList = payload
-    }
+    },
+    setCurrentCategory: (state, {payload}) => {
+      state.currentCategory = payload
+    },
+    removeCurrentCategory: (state) => {
+      state.currentCategory = ''
+    },
 
   },
   extraReducers: (builder) => {

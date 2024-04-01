@@ -1,27 +1,26 @@
 import TaskListHeader from "./TaskListHeader/TaskListHeader.tsx";
-import TaskListBtn from "./TaskListBtn/TaskListBtn.tsx";
+import AddCategoryBtn from "./TaskListBtn/AddCategoryBtn.tsx";
 import {Stack} from "@mui/material";
 import CardForm from "../CardForm/CardForm.tsx";
-import {useState} from "react";
 import {useAppSelector} from "../../hooks/hooks.ts";
 import TaskCard from "./TaskCard/TaskCard.tsx";
 
 interface Prop {
-  id:string
+  id: string
   name: string
-  amount:number
+  amount: number
 }
+
 const TaskList = (prop: Prop) => {
-  const [initialName] = useState(prop.name);
-  const boardTask=useAppSelector(
+  const boardTask = useAppSelector(
     state => state.task.taskList
   )
 
   return (
     <>
-      <CardForm name={initialName} />
+      <CardForm/>
       <TaskListHeader {...prop}/>
-      <TaskListBtn/>
+      <AddCategoryBtn name={prop.name}/>
       <Stack
         maxHeight={'70vh'}
         overflow={"auto"}
@@ -29,11 +28,10 @@ const TaskList = (prop: Prop) => {
         pl={1}
         pr={2}
       >
-        {boardTask?.map(task=>(
+        {boardTask?.map(task => (
+          
           <TaskCard key={task.id} dataTask={task}/>
         ))}
-        {/*<TaskCard/>*/}
-        {/*<TaskCard/>*/}
       </Stack>
     </>
   );
