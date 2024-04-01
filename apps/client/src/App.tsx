@@ -47,8 +47,13 @@ function App() {
   return (
     <>
       {/*<CreateBoard/>*/}
-      {!boardsList &&  <CreateBoard/>}
-      {boardsList && !currentBoard && <BoardsList/>}
+      {!boardsList && <CreateBoard/>}
+      {boardsList && !currentBoard &&
+        <>
+          <BoardsList/>
+          <CreateBoard/>
+        </>
+      }
       {!boardsList || currentBoard && <Layout/>}
     </>
   )

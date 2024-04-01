@@ -3,7 +3,7 @@ import { taskCreateNew, taskGetAll, deleteTask} from "./cardOperation.ts";
 import {ITask} from "../../types/types.ts";
 
 interface IStoreTask {
-  taskList: ITask[]
+  taskList: ITask[] |[]
   currentTask: ITask | null
 }
 
@@ -26,6 +26,10 @@ const taskSlice = createSlice({
     })
 
     builder.addCase(taskCreateNew.fulfilled, (state, action) => {
+      if(!state.taskList){
+        state.taskList=[action.payload]
+        return
+      }
       state.taskList.push(action.payload)
     })
     builder.addCase(deleteTask.fulfilled, (state, action) => {
