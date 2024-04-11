@@ -1,22 +1,8 @@
-export interface IHistory {
-  id: string;
-  person: string;
-  act: string;
-  task_name: string;
-  task_rename: string | null;
-  act_from: string;
-  act_to: string | null;
-  transfer_date: string;
-}
+import {IBoard} from "./board.types.ts";
 
-export interface ITasksList {
-  id: string;
-  task_name: string;
-  status: string;
-  due_date: string;
-  priority: string;
-  description: string;
-  transfer_date: string;
+
+export interface ServerResponse<T> {
+  data: T[]
 }
 
 export interface IResponseBoardsList {
@@ -24,41 +10,16 @@ export interface IResponseBoardsList {
 }
 
 export interface IStoreBoard {
-  currentBoard: IBoard ;
-  boardsList: IBoard[] ;
+  currentBoard: IBoard | null;
+  boardsList: IBoard[] | null;
 }
 
-export interface IBoard {
-  id: string;
-  name: string;
-  createdAt: string;
-  history?: IHistory[];
-  tasks_list?: ITasksList[];
-  sud_list?:ICategory[]
-}
 
 export interface IPostBoard {
   board: IBoard
 }
 
-export interface ICategory {
-  id: string;
-  name: string;
-  board: IBoard
-}
 
-export interface ITask {
-  id: string;
-  task_name: string;
-  status: string;
-  due_date: string;
-  priority: string;
-  description: string;
-  board: {
-    id: string;
-  };
-  transfer_date: string;
-}
 export interface ITaskPost {
   task_name: string;
   status: string;
