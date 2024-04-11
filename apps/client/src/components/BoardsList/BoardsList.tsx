@@ -1,5 +1,5 @@
 import {List, ListItemButton, ListItemText} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
+import { useAppSelector} from "../../hooks/hooks.ts";
 // import {getBoard} from "../../store/board/boardOperation.ts";
 // import {categoryGetAll} from "../../store/category/categoryOperation.ts";
 import {useLazyGetOneBoardQuery} from "../../services/board.ts";
