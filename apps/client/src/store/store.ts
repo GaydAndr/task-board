@@ -14,6 +14,7 @@ import uiSlice from "./ui/ui_slice.ts";
 import boardSlice from "./board/boardSlice.ts";
 import categorySlice from "./category/categorySlice.ts";
 import taskSlice from "./card/cardSlice.ts";
+import {api} from "../services/api.ts";
 
 
 const persistUiConfig = {
@@ -42,7 +43,8 @@ export const store = configureStore({
     ui: UiReducer,
     board: BoardReducer,
     category: CategoryReducer,
-    task: TaskReducer
+    task: TaskReducer,
+    [api.reducerPath]: api.reducer
   },
   devTools: process.env.NODE_ENV === 'development',
   middleware: getDefaultMiddleware =>
@@ -50,7 +52,8 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    })
+      .concat(api.middleware),
 })
 
 let persistor = persistStore(store)
