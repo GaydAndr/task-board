@@ -7,6 +7,7 @@ import CreateBoard from "./components/CreateBoard/CreateBoard.tsx";
 import {categoryAction} from "./store/category/categorySlice.ts";
 import {taskAction} from "./store/card/cardSlice.ts";
 import {useLazyGetAllBoardsQuery} from "./services/board.ts";
+import {Box} from "@mui/material";
 
 function App() {
   const [getAllBoards]=useLazyGetAllBoardsQuery()
@@ -46,10 +47,10 @@ function App() {
       {/*<CreateBoard/>*/}
       {!boardsList && <CreateBoard/>}
       {boardsList && !currentBoard &&
-        <>
-          <BoardsList/>
+        <Box maxHeight={'80vh'} overflow={"auto"}>
           <CreateBoard/>
-        </>
+          <BoardsList/>
+        </Box>
       }
       {!boardsList || currentBoard && <Layout/>}
     </>
