@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../../api/axios.api.ts";
-import {IBoard, ICategory, IPostBoard} from "../../types/types.ts";
+import {ICategory} from "../../types/category.types.ts";
+import {IBoard} from "../../types/board.types.ts";
 
 
 export const categoryGetAll =

@@ -1,21 +1,26 @@
 import AddIcon from "@mui/icons-material/Add";
-import {Button, Stack, TextField} from "@mui/material";
+import {Button,  Stack, TextField} from "@mui/material";
 import {useState} from "react";
-import {useAppDispatch} from "../../hooks/hooks.ts";
-import {postBoard} from "../../store/board/boardOperation.ts";
-import {categoryCreateDefault} from "../../store/category/categoryOperation.ts";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
+import {usePostBoardMutation} from "../../services/board.ts";
+import CancelIcon from '@mui/icons-material/Cancel';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CreateIconBtn from "./CreateIconBtn/CreateIconBtn.tsx";
 
 const CreateBoard = () => {
-  const dispatch = useAppDispatch()
+  const [post] = usePostBoardMutation()
   const [active, setActive] = useState(false)
   const [boardTitle, setBoardTitle] = useState('');
 
-  const handleCreateClick = () => {
+  const handleClick = () => {
     const boardId = uuidv4();
+    if (!boardTitle) {
+      setActive(!active);
+      return
+    }
     if (active) {
-      dispatch(postBoard({boardTitle, boardId}))
-      dispatch(categoryCreateDefault({"board": boardId}))
+      post({id: boardId, name: boardTitle})
+      setBoardTitle('')
     }
     setActive(!active);
   };
@@ -26,37 +31,48 @@ const CreateBoard = () => {
           direction={"row"}
           component="form"
           spacing={1}
-          sx={{
-            '& > :not(style)': {width: '15ch'},
-          }}
-
+          width={'250px'}
           noValidate
           autoComplete="off"
+          alignItems={"center"}
         >
           <TextField
             id="outlined-controlled"
-            label="Controlled"
+            label="Board name"
             value={boardTitle}
             size="small"
-
-
+            autoFocus
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setBoardTitle(event.target.value);
             }}
           />
-          <Button
-            variant="contained"
-            onClick={handleCreateClick}
-            size="small"
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            spacing={1}
           >
-            Create
-          </Button>
+            <CreateIconBtn
+              ariaLabel={'add'}
+              iconColor={'success'}
+              disabled={!boardTitle}
+              handleOnClick={handleClick}
+              children={ <AddCircleIcon fontSize="large"/>}
+            />
+            <CreateIconBtn
+              ariaLabel={'cancel'}
+              iconColor={'error'}
+              handleOnClick={handleClick}
+              children={<CancelIcon/>}
+              />
+          </Stack>
+
         </Stack>
         :
         <Button
+          aria-label={'createList'}
           variant="outlined"
           startIcon={<AddIcon/>}
-          onClick={handleCreateClick}
+          onClick={handleClick}
         >
           Create new list
         </Button>

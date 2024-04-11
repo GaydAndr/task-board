@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {AppBar, Box, CssBaseline, IconButton, Toolbar} from "@mui/material";
 import TitleBoard from "./Title/TitleBoard.tsx";
-import BoardBtn from "./BoardBtn/BoardBtn.tsx";
+import HeaderNavBtn from "./HeaderNavBtn/HeaderNavBtn.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import BoardSelector from "./BoardSelector/BoardSelector.tsx";
 
@@ -30,7 +30,7 @@ const Header: FC = () => {
             <BoardSelector/>
           </Box>
           <Box sx={{display: {xs: 'none', sm: 'block'}}}>
-            <BoardBtn/>
+            <HeaderNavBtn/>
           </Box>
         </Toolbar>
       </AppBar>

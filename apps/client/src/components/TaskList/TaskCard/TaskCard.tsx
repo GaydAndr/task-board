@@ -2,7 +2,7 @@ import {Card, CardActionArea, CardActions, CardContent, CardHeader, Stack, Typog
 import CardMenu from "./CardMenu/CardMenu.tsx";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import CardMoveTo from "./CardMoveTo/CardMoveTo.tsx";
+import TaskMoveTo from "./TaskMoveTo/TaskMoveTo.tsx";
 import {ITaskResponse} from "../../../types/types.ts";
 import dayjs from 'dayjs';
 
@@ -85,7 +85,7 @@ const TaskCard = ({dataTask}:Prop) => {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <CardMoveTo id={dataTask.id}/>
+        <TaskMoveTo id={dataTask.id}/>
       </CardActions>
     </Card>
   );

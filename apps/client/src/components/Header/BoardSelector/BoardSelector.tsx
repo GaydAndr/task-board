@@ -1,14 +1,13 @@
 import {Button, Dialog, DialogTitle} from "@mui/material";
 import {useState} from "react";
 import BoardsList from "../../BoardsList/BoardsList.tsx";
-import {useAppDispatch} from "../../../hooks/hooks.ts";
-import {boardGetAll} from "../../../store/board/boardOperation.ts";
+import {useLazyGetAllBoardsQuery} from "../../../services/board.ts";
 
 const BoardSelector = () => {
-  const dispatch = useAppDispatch()
+  const [getAllBoards]=useLazyGetAllBoardsQuery()
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
-    dispatch(boardGetAll())
+    getAllBoards()
     setOpen(true);
   };
 

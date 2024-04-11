@@ -3,8 +3,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/hooks.ts";
-import {taskGetAll, updateCardStatus} from "../../../../store/card/cardOperation.ts";
-import {getBoard} from "../../../../store/board/boardOperation.ts";
+import { updateCardStatus} from "../../../../store/card/cardOperation.ts";
+// import {getBoard} from "../../../../store/board/boardOperation.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -18,8 +18,8 @@ const StyledMenu = styled((props: MenuProps) => (
       horizontal: 'right',
     }}
     sx={{
-        maxHeight: 48 * 4.5,
-        width: '20ch',
+      maxHeight: 48 * 4.5,
+      width: '20ch',
     }}
     {...props}
   />
@@ -49,10 +49,10 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-const CardMoveTo = ({id}:{id:string}) => {
+const TaskMoveTo = ({id}: { id: string }) => {
   const dispatch = useAppDispatch()
-  const categoryList=useAppSelector(
-    state => state.category.categoryList
+  const {categoryList} = useAppSelector(
+    state => state.category
   )
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -63,10 +63,10 @@ const CardMoveTo = ({id}:{id:string}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const moveTo = (status:string) => {
+  const moveTo = (status: string) => {
     handleClose();
-    dispatch(updateCardStatus({id, "status":status}))
-    dispatch(getBoard(id))
+    dispatch(updateCardStatus({id, "status": status}))
+    // dispatch(getBoard(id))
   };
 
   return (
@@ -97,8 +97,8 @@ const CardMoveTo = ({id}:{id:string}) => {
         onClose={handleClose}
       >
         {
-          categoryList?.map(el=>(
-            <MenuItem key={el.id} onClick={()=>moveTo(el.name)} disableRipple>
+          categoryList?.map(el => (
+            <MenuItem key={el.id} onClick={() => moveTo(el.name)} disableRipple>
               {el.name}
             </MenuItem>
           ))
@@ -109,4 +109,4 @@ const CardMoveTo = ({id}:{id:string}) => {
   );
 }
 
-export default CardMoveTo;
+export default TaskMoveTo;
