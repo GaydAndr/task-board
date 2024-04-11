@@ -8,13 +8,10 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
-  Req,
-  RawBodyRequest
 } from '@nestjs/common';
 import {SubListService} from './sub_list.service';
 import {CreateSubListDto} from './dto/create-sub_list.dto';
 import {UpdateSubListDto} from './dto/update-sub_list.dto';
-import {Request} from "express";
 
 @Controller('sub-list')
 export class SubListController {
@@ -27,17 +24,15 @@ export class SubListController {
   @UsePipes(new ValidationPipe())
   create(
     @Body() createSubListDto: CreateSubListDto,
-    @Req() req: RawBodyRequest<Request>
   ) {
     return this.subListService.create(
-      createSubListDto,
-      req.body.board
+      createSubListDto
     );
   }
 
-  @Post('createDefault')
-  createDefaultSubLists(@Req() req: RawBodyRequest<Request>) {
-    return this.subListService.createDefaultSubLists(req.body.board)
+  @Post('createDefault/:id')
+  createDefaultSubLists(@Param('id') id: string) {
+    return this.subListService.createDefaultSubLists(id)
   }
 
   @Get('all/:id')

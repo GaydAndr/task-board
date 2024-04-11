@@ -5,7 +5,7 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsString()
   // @MinLength(3,{message:'Category name must have more then 3 symbols'})
-  task_name: string
+  name: string
 
   @IsString()
   status: string
@@ -20,6 +20,6 @@ export class CreateTaskDto {
   @IsString()
   description?: string
 
-  @IsOptional()
-  board?: Board
+  @IsNotEmpty()
+  board: Board
 }

@@ -7,7 +7,10 @@ export class Task {
   @PrimaryGeneratedColumn('uuid', {name: 'task_id'})
   id: string
 
-  @ManyToOne(() => Board, (board) => board.tasks_list)
+  @ManyToOne(
+    () => Board,
+    (board) => board.tasks_list
+  )
   @JoinColumn({name: 'board_id'})
   board: Board
 
@@ -18,7 +21,7 @@ export class Task {
   history: History[]
 
   @Column()
-  task_name: string
+  name: string
 
   @Column()
   status: string

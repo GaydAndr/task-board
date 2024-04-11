@@ -1,7 +1,6 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {CreateTaskDto} from './dto/create-task.dto';
 import {UpdateTaskDto} from './dto/update-task.dto';
-import {Board} from "../board/entities/board.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Task} from "./entities/task.entity";
 import {Repository} from "typeorm";
@@ -10,20 +9,20 @@ import {validate as isValidUUID} from 'uuid'
 
 @Injectable()
 export class TasksService {
-  constructor(
+  constructor( 
     @InjectRepository(Task)
     private taskRepository: Repository<Task>
   ) {
   }
 
-  async create(createTaskDto: CreateTaskDto, board: Board) {
+  async create(createTaskDto: CreateTaskDto) {
     const newTask = this.taskRepository.create({
-      task_name: createTaskDto.task_name,
+      name: createTaskDto.name,
       status: createTaskDto.status,
       priority: createTaskDto.priority,
       due_date: createTaskDto.due_date,
       description: createTaskDto.description,
-      board
+      board:createTaskDto.board
     })
     return await this.taskRepository.save(newTask);
   }
@@ -35,8 +34,8 @@ export class TasksService {
         board: {id}
       },
       relations:{
-        board:true,
-        history:true
+        // board:true,
+        // history:true
       }
     })
   }
@@ -47,8 +46,8 @@ export class TasksService {
     return await this.taskRepository.findOne({
       where: {id},
       relations: {
-        history: true,
-        board: true
+        // history: true,
+        // board: true
       }
     })
   }

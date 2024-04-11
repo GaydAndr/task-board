@@ -8,25 +8,22 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
-  Req,
-  RawBodyRequest
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
-import {Request} from "express";
+import {TasksService} from './tasks.service';
+import {CreateTaskDto} from './dto/create-task.dto';
+import {UpdateTaskDto} from './dto/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) {
+  }
 
   @Post()
   @UsePipes(new ValidationPipe())
   create(
-    @Body() createTaskDto: CreateTaskDto,
-    @Req() req: RawBodyRequest<Request>
+    @Body() createTaskDto: CreateTaskDto
   ) {
-    return this.tasksService.create(createTaskDto, req.body.board);
+    return this.tasksService.create(createTaskDto);
   }
 
   @Get('all/:id')

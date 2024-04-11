@@ -4,7 +4,6 @@ import {UpdateSubListDto} from './dto/update-sub_list.dto';
 import {InjectRepository} from "@nestjs/typeorm";
 import {SubList} from "./entities/sub_list.entity";
 import {Repository} from "typeorm";
-import {Board} from "../board/entities/board.entity";
 import {validate as isValidUUID} from 'uuid'
 
 @Injectable()
@@ -15,7 +14,7 @@ export class SubListService {
   ) {
   }
 
-  async create(createSubListDto: CreateSubListDto, board: Board) {
+  async create(createSubListDto: CreateSubListDto) {
     // const isExist = await this.subListRepository.findBy({
     // board: {id}
     // name: createSubListDto.name
@@ -24,17 +23,17 @@ export class SubListService {
 
     const newSubList = this.subListRepository.create({
       name: createSubListDto.name,
-      board
+      board: createSubListDto.board
     })
     return await this.subListRepository.save(newSubList);
   }
 
-  async createDefaultSubLists(board: Board) {
+  async createDefaultSubLists(id: string) {
     const names = ["To Do", "Planned", "In Progress", "Closed"];
     const subLists = names
       .map(name => this.subListRepository.create({
         name,
-        board
+        board: {id}
       }));
     return await this.subListRepository.save(subLists);
   }
@@ -45,8 +44,8 @@ export class SubListService {
       where: {
         board: {id},
       },
-      relations:{
-        board:true
+      relations: {
+        board: true
       }
     });
   }

@@ -1,6 +1,5 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {CreateHistoryDto} from './dto/create-history.dto';
-import {UpdateHistoryDto} from './dto/update-history.dto';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import {History} from "./entities/history.entity";
@@ -19,7 +18,7 @@ export class HistoryService {
     const newHistory = this.historyRepository.create({
       person:createHistoryDto.person,
       act:createHistoryDto.act,
-      task_name: task.task_name,
+      task_name: task.name,
       task_rename:createHistoryDto.task_rename,
       act_from:createHistoryDto.act_from,
       act_to:createHistoryDto.act_to,
