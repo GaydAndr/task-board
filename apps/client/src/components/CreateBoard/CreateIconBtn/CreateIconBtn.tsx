@@ -7,6 +7,7 @@ interface Props {
   disabled?: boolean
   children: ReactElement
   handleOnClick: () => void
+  type: 'submit' | 'button'
 }
 
 const tooltipText = {
@@ -15,7 +16,14 @@ const tooltipText = {
   CANCEL: 'Cancel',
 }
 
-const CreateIconBtn = ({ariaLabel, iconColor, handleOnClick, disabled = false, children}: Props) => {
+const CreateIconBtn = ({
+                         ariaLabel,
+                         iconColor,
+                         handleOnClick,
+                         disabled = false,
+                         children,
+                         type
+}: Props) => {
   const [open, setOpen] = useState(false);
   const [tooltipTitle, setTooltipTitle] = useState(tooltipText.CANCEL)
 
@@ -50,6 +58,7 @@ const CreateIconBtn = ({ariaLabel, iconColor, handleOnClick, disabled = false, c
           onClick={ handleOnClick}
           disabled={disabled}
           sx={{outline: 'none', padding: '10px 0'}}
+          type={type}
         >
           {children}
         </IconButton>

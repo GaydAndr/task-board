@@ -55,12 +55,14 @@ const CreateBoard = () => {
               ariaLabel={'add'}
               iconColor={'success'}
               disabled={!boardTitle}
+              type={'submit'}
               handleOnClick={handleClick}
               children={ <AddCircleIcon fontSize="large"/>}
             />
             <CreateIconBtn
               ariaLabel={'cancel'}
               iconColor={'error'}
+              type={'button'}
               handleOnClick={handleClick}
               children={<CancelIcon/>}
               />
