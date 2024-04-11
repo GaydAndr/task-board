@@ -32,7 +32,7 @@ export class Board {
     (sub_list)=>sub_list.board,
     {onDelete: "CASCADE", nullable: true},
   )
-  sud_list: SubList[] // bug
+  sub_list: SubList[]
 
   @CreateDateColumn()
   createdAt: Date

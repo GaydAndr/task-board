@@ -25,7 +25,7 @@ export class BoardService {
   async findAll() {
     return await this.boardRepository.find({
       relations:{
-        sud_list:true,
+        sub_list:true,
         history:true,
         tasks_list:true
       }
@@ -46,7 +46,7 @@ export class BoardService {
       relations: {
         history: true,
         tasks_list: true,
-        sud_list:true
+        sub_list:true
       }
     })
   }
