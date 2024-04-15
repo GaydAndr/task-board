@@ -34,11 +34,7 @@ export class BoardService {
 
   async findOne(id: string) {
     this.validUUID(id)
-    const isExist = await this.boardRepository.findOne({
-      where: {id}
-    })
-    if (!isExist) throw new NotFoundException('Board not found')
-
+    await this.isExist(id)
     return await this.boardRepository.findOne({
       where: {
         id
@@ -51,19 +47,26 @@ export class BoardService {
     })
   }
 
-  update(id: number, updateBoardDto: UpdateBoardDto) {
-    return `This action updates a #${id} board`;
+  async update(id: string, updateBoardDto: UpdateBoardDto) {
+    this.validUUID(id)
+    await this.isExist(id)
+    console.log(updateBoardDto)
+    return await this.boardRepository.update(id, updateBoardDto);
   }
 
   async remove(id: string) {
     this.validUUID(id)
+    await this.isExist(id)
+    await this.boardRepository.delete(id);
+    return id
+  }
+
+  async isExist(id: string) {
     const isExist = await this.boardRepository.findOne({
       where: {id}
     })
-
-    if (!isExist) throw new BadRequestException('Category not found')
-    await this.boardRepository.delete(id);
-    return id
+    console.log(isExist)
+    if (!isExist) throw new NotFoundException('Board id not found')
   }
 
   validUUID(id: string) {
