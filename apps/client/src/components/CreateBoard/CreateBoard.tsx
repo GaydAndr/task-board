@@ -6,23 +6,31 @@ import {usePostBoardMutation} from "../../services/board.ts";
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CreateIconBtn from "./CreateIconBtn/CreateIconBtn.tsx";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
+import {uiAction} from "../../store/ui/ui_slice.ts";
 
 const CreateBoard = () => {
-  const [post] = usePostBoardMutation()
+  const dispatch= useAppDispatch();
+  const navState=useAppSelector(state => state.ui.menuDrawer)
+  const [postBoard] = usePostBoardMutation()
   const [active, setActive] = useState(false)
   const [boardTitle, setBoardTitle] = useState('');
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const boardId = uuidv4();
     if (!boardTitle) {
       setActive(!active);
       return
     }
-    if (active) {
-      post({id: boardId, name: boardTitle})
+    if (active && e.currentTarget.ariaLabel === 'addBoard') {
+      postBoard({id: boardId, name: boardTitle})
       setBoardTitle('')
     }
+    if(active && navState){
+      dispatch(uiAction.toggleMenu(false))
+    }
     setActive(!active);
+    setBoardTitle('')
   };
   return (
     <>
@@ -52,7 +60,7 @@ const CreateBoard = () => {
             spacing={1}
           >
             <CreateIconBtn
-              ariaLabel={'add'}
+              ariaLabel={'addBoard'}
               iconColor={'success'}
               disabled={!boardTitle}
               type={'submit'}

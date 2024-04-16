@@ -23,8 +23,6 @@ const MainGrid = () => {
       >
         <Grid
           wrap={"nowrap"}
-          sx={{
-          }}
           container
           spacing={2}
         >

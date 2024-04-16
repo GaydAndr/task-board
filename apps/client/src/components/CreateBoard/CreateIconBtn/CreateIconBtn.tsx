@@ -6,7 +6,7 @@ interface Props {
   iconColor: 'success' | 'error' | 'primary'
   disabled?: boolean
   children: ReactElement
-  handleOnClick: () => void
+  handleOnClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   type: 'submit' | 'button'
 }
 
@@ -32,10 +32,10 @@ const CreateIconBtn = ({
   };
 
   const handleOpen = () => {
-    if(disabled && ariaLabel ==='add'){
+    if(disabled && ariaLabel ==='addBoard'){
       setTooltipTitle(tooltipText.TYPE_TITLE)
     }
-    else if(ariaLabel ==='add') {
+    else if(ariaLabel ==='addBoard') {
       setTooltipTitle(tooltipText.ADD)
     }
     else {
@@ -55,7 +55,7 @@ const CreateIconBtn = ({
         <IconButton
           aria-label={ariaLabel}
           color={iconColor}
-          onClick={ handleOnClick}
+          onClick={e=> handleOnClick(e)}
           disabled={disabled}
           sx={{outline: 'none', padding: '10px 0'}}
           type={type}

@@ -1,28 +1,32 @@
-import {Drawer} from "@mui/material";
-import HistoryList from "./HistoriList/HistoryList.tsx";
+import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import MyDrawer from "../MyDrawer/MyDrawer.tsx";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
 import {uiAction} from "../../store/ui/ui_slice.ts";
 
 const History = () => {
   const dispatch = useAppDispatch()
   const historyDrawer = useAppSelector((state) => state.ui.historyDrawer)
-  const toggleDrawer =
-    () =>
-      (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (
-          event.type === 'keydown' &&
-          ((event as React.KeyboardEvent).key === 'Tab' ||
-            (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-          return;
-        }
-        dispatch(uiAction.toggleHistory(false))
-      };
+  const handlerCloseHistory = () => {
+    dispatch(uiAction.toggleHistory(false))
+  }
   return (
     <>
-      <Drawer open={historyDrawer} anchor={"right"} onClose={toggleDrawer()}>
-        <HistoryList/>
-      </Drawer>
+      <MyDrawer drawerState={historyDrawer} drawerAnchor={'right'} drawerFunc={handlerCloseHistory}>
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                </ListItemIcon>
+                <ListItemText primary={text}/>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </MyDrawer>
     </>
   );
 };

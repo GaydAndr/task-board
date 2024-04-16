@@ -17,10 +17,15 @@ const BoardSelector = () => {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen} sx={{ml:2}}>
+      <Button variant="outlined" onClick={handleClickOpen} sx={{ml:1, width:'120px', p:0 }}>
         Select Board
       </Button>
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        fullWidth={true}
+
+      >
         <DialogTitle>Chose board</DialogTitle>
         <BoardsList onCloseDrawer={handleClose}/>
       </Dialog>

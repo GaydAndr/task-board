@@ -21,7 +21,6 @@ const BoardsList = (props: SimpleDialogProps) => {
   };
 
   const handelDelete = (id: string) => {
-    console.log(1231)
     deleteBoard(id)
   };
 
@@ -29,27 +28,28 @@ const BoardsList = (props: SimpleDialogProps) => {
     <>
       <List component="nav" aria-label="secondary mailbox folder">
         {boardsList?.map((board) => (
-          <ListItem
-            key={board.id}
-            sx={{paddingLeft: 2, paddingRight: 2}}
-            secondaryAction={
-              <IconButton
-                edge="end" aria-label="delete"
-                onClick={() => handelDelete(board.id)}
-              >
-                <DeleteIcon/>
-              </IconButton>
-            }
-          >
-            <ListItemButton
-              onClick={() => handleListItemClick(board.id)}
-              dense
+            <ListItem
+              key={board.id}
+              sx={{paddingLeft: 2, paddingRight: 2}}
+              secondaryAction={
+                <IconButton
+                  edge="end" aria-label="delete"
+                  color={"error"}
+                  onClick={() => handelDelete(board.id)}
+                >
+                  <DeleteIcon/>
+                </IconButton>
+              }
             >
-              <ListItemText secondary={board.name}/>
-            </ListItemButton>
-          </ListItem>
+              <ListItemButton
+                onClick={() => handleListItemClick(board.id)}
+                dense
+              >
+                <ListItemText secondary={board.name}/>
+              </ListItemButton>
+            </ListItem>
 
-        ))}
+          ))}
 
       </List>
     </>

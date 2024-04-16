@@ -6,8 +6,8 @@ import {useAppSelector} from "../../../hooks/hooks.ts";
 import TitleDialog from "./TitleDialog/TitleDialog.tsx";
 
 const TitleBoard: FC = () => {
-  const boardTitle = useAppSelector(
-    state => state.board.currentBoard?.name
+  const {name, id} = useAppSelector(
+    state => state.board.currentBoard!
   )
   const [open, setOpen] = useState(false);
 
@@ -23,16 +23,17 @@ const TitleBoard: FC = () => {
       <Typography
         variant="h4"
         maxWidth={'140px'}
+        noWrap
         sx={{
           overflow: "hidden",
           textOverflow: "ellipsis",
           cursor: 'pointer'
-      }}
+        }}
         onClick={handleClickOpen}
       >
-        {boardTitle}
+        {name}
       </Typography>
-      <TitleDialog open={open} boardTitle={boardTitle} handleClose={handleClose}/>
+      <TitleDialog open={open} boardTitle={name} id={id} handleClose={handleClose}/>
     </>
   );
 };
