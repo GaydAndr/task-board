@@ -24,10 +24,10 @@ export class BoardService {
 
   async findAll() {
     return await this.boardRepository.find({
-      relations:{
-        sub_list:true,
-        history:true,
-        tasks_list:true
+      relations: {
+        sub_list: true,
+        history: true,
+        tasks_list: true
       }
     })
   }
@@ -42,7 +42,7 @@ export class BoardService {
       relations: {
         history: true,
         tasks_list: true,
-        sub_list:true
+        sub_list: true
       }
     })
   }
@@ -50,22 +50,22 @@ export class BoardService {
   async update(id: string, updateBoardDto: UpdateBoardDto) {
     this.validUUID(id)
     await this.isExist(id)
-    console.log(updateBoardDto)
-    return await this.boardRepository.update(id, updateBoardDto);
+
+    const updatedBoard = await this.boardRepository.update(id, updateBoardDto);
+    return this.findOne(id)
   }
 
   async remove(id: string) {
     this.validUUID(id)
     await this.isExist(id)
     await this.boardRepository.delete(id);
-    return id
+    return {id}
   }
 
   async isExist(id: string) {
     const isExist = await this.boardRepository.findOne({
       where: {id}
     })
-    console.log(isExist)
     if (!isExist) throw new NotFoundException('Board id not found')
   }
 
