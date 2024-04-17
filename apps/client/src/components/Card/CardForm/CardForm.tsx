@@ -3,10 +3,10 @@ import CardField from "./CardField/CardField.tsx";
 import CardDatePicker from "./CardDatePicker/CardDatePicker.tsx";
 import CardDescription from "./CardDescription/CardDescription.tsx";
 import CardPriority from "./CardPriority/CardPriority.tsx";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
-import {uiAction} from "../../store/ui/ui_slice.ts";
-import {taskCreateNew} from "../../store/card/cardOperation.ts";
-import {categoryAction} from "../../store/category/categorySlice.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
+import {uiAction} from "../../../store/ui/ui_slice.ts";
+import {categoryAction} from "../../../store/category/categorySlice.ts";
+import {taskCreateNew} from "../../../store/card/cardOperation.ts";
 
 const CardForm = () => {
   const dispatch = useAppDispatch()

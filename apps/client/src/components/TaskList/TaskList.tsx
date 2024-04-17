@@ -1,9 +1,9 @@
 import TaskListHeader from "./TaskListHeader/TaskListHeader.tsx";
 import AddCategoryBtn from "./TaskListBtn/AddCategoryBtn.tsx";
 import {Stack} from "@mui/material";
-import CardForm from "../CardForm/CardForm.tsx";
 import {useAppSelector} from "../../hooks/hooks.ts";
 import TaskCard from "./TaskCard/TaskCard.tsx";
+import CardForm from "../Card/CardForm/CardForm.tsx";
 
 interface Prop {
   id: string

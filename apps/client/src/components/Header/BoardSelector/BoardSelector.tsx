@@ -1,6 +1,6 @@
 import {Button, Dialog, DialogTitle} from "@mui/material";
 import {useState} from "react";
-import BoardsList from "../../BoardsList/BoardsList.tsx";
+import BoardsList from "../../common/BoardsList/BoardsList.tsx";
 import {useLazyGetAllBoardsQuery} from "../../../services/board.ts";
 
 const BoardSelector = () => {

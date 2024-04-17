@@ -1,6 +1,6 @@
 import {IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import {useAppSelector} from "../../hooks/hooks.ts";
-import {useDeleteBoardMutation, useLazyGetOneBoardQuery} from "../../services/board.ts";
+import {useAppSelector} from "../../../hooks/hooks.ts";
+import {useDeleteBoardMutation, useLazyGetOneBoardQuery} from "../../../services/board.ts";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export interface SimpleDialogProps {
@@ -48,9 +48,7 @@ const BoardsList = (props: SimpleDialogProps) => {
                 <ListItemText secondary={board.name}/>
               </ListItemButton>
             </ListItem>
-
           ))}
-
       </List>
     </>
   );

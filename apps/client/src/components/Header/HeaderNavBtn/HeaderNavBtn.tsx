@@ -1,7 +1,7 @@
 import {Button, Stack} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 import {uiAction} from "../../../store/ui/ui_slice.ts";
-import CreateBoard from "../../CreateBoard/CreateBoard.tsx";
+import CreateBoard from "../CreateBoard/CreateBoard.tsx";
 
 const HeaderNavBtn = () => {
   const menuDrawer = useAppSelector(state => state.ui.menuDrawer)
@@ -18,7 +18,6 @@ const HeaderNavBtn = () => {
       <Button
         variant="contained"
         onClick={handlerHistoryBtn}
-        // fullWidth
       >
         History
       </Button>

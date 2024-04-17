@@ -1,5 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
-import MyDrawer from "../../MyDrawer/MyDrawer.tsx";
+import MyDrawer from "../../common/MyDrawer/MyDrawer.tsx";
 import {uiAction} from "../../../store/ui/ui_slice.ts";
 import {List} from "@mui/material";
 import NavItem from "./NavItem/NavItem.tsx";

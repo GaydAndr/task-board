@@ -2,13 +2,11 @@ import './App.css'
 import Layout from "./components/Layout/Layout.tsx";
 import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "./hooks/hooks.ts";
-import BoardsList from "./components/BoardsList/BoardsList.tsx";
-import CreateBoard from "./components/CreateBoard/CreateBoard.tsx";
-// import {categoryAction} from "./store/category/categorySlice.ts";
-// import {taskAction} from "./store/card/cardSlice.ts";
+import BoardsList from "./components/common/BoardsList/BoardsList.tsx";
 import {useLazyGetAllBoardsQuery} from "./services/board.ts";
 import {Box} from "@mui/material";
 import {boardAction} from "./store/board/boardSlice.ts";
+import CreateBoard from "./components/Header/CreateBoard/CreateBoard.tsx";
 
 function App() {
   const [getAllBoards] = useLazyGetAllBoardsQuery()
@@ -35,7 +33,6 @@ function App() {
 
   return (
     <>
-      {/*<CreateBoard/>*/}
       {!boardsList && <CreateBoard/>}
       {boardsList && !currentBoard &&
         <Box maxHeight={'80vh'} overflow={"auto"}>

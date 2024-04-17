@@ -1,7 +1,7 @@
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import MyDrawer from "../MyDrawer/MyDrawer.tsx";
+import MyDrawer from "../common/MyDrawer/MyDrawer.tsx";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
 import {uiAction} from "../../store/ui/ui_slice.ts";
 

@@ -2,12 +2,12 @@ import AddIcon from "@mui/icons-material/Add";
 import {Button,  Stack, TextField} from "@mui/material";
 import {useState} from "react";
 import {v4 as uuidv4} from 'uuid';
-import {usePostBoardMutation} from "../../services/board.ts";
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CreateIconBtn from "./CreateIconBtn/CreateIconBtn.tsx";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks.ts";
-import {uiAction} from "../../store/ui/ui_slice.ts";
+import {uiAction} from "../../../store/ui/ui_slice.ts";
+import {usePostBoardMutation} from "../../../services/board.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 
 const CreateBoard = () => {
   const dispatch= useAppDispatch();
