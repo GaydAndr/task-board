@@ -4,17 +4,16 @@ interface IUIState {
   menuDrawer: boolean
   historyDrawer: boolean
   cardForm: boolean
+  categoryInput: {
+    [key: string]: boolean
+  }
 }
-//
-// interface IPayload {
-//   type: 'menuDrawer | historyDrawer | cardForm'
-//   drawerState: boolean
-// }
 
 const initialState: IUIState = {
   menuDrawer: false,
   historyDrawer: false,
-  cardForm: false
+  cardForm: false,
+  categoryInput: {}
 }
 
 const uiSlice = createSlice({
@@ -30,7 +29,14 @@ const uiSlice = createSlice({
     toggleMenu: (state, {payload}: PayloadAction<boolean>) => {
       state.menuDrawer = payload
     },
-
+    toggleCategoryInp: (state, {payload}: PayloadAction<{ id?: string, value?: boolean }>) => {
+      const {id, value} = payload;
+      if (id && value) {
+        state.categoryInput = {[id]: value};
+        return
+      }
+      state.categoryInput = {}
+    },
   }
 })
 

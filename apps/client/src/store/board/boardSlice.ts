@@ -38,6 +38,9 @@ const boardSlice = createSlice({
     )
     builder.addMatcher(
       boardApi.endpoints.deleteBoard.matchFulfilled, (state, {payload}) => {
+        if (state.boardsList) {
+          state.boardsList = state.boardsList.filter((board) => board.id !== payload.id)
+        }
         if (payload.id === state.currentBoard?.id) {
           state.currentBoard = null
         }

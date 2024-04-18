@@ -1,5 +1,10 @@
 import {IBoard} from "./board.types.ts";
 
+export interface ICreateTooltipText{
+  TYPE_TITLE: string
+  ADD: string
+  CANCEL: string,
+}
 
 export interface ServerResponse<T> {
   data: T[]
