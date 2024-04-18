@@ -6,9 +6,9 @@ export interface IBoard {
   id: string;
   name: string;
   createdAt: string;
-  history?: IHistory[];
-  tasks_list?: ITask[];
-  sud_list?:ICategory[]
+  history: IHistory[];
+  tasks_list: ITask[];
+  sub_list:ICategory[]
 }
 
 export interface BoardResponse{

@@ -1,6 +1,6 @@
 import {FC} from "react";
 import Header from "../Header/Header.tsx";
-import MainGrid from "../MainGrid/MainGrid.tsx";
+import MainGrid from "../Categories/MainGrid/MainGrid.tsx";
 import {Box, Toolbar} from "@mui/material";
 import History from "../History/History.tsx";
 

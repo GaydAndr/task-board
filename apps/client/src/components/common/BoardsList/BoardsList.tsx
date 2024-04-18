@@ -1,22 +1,28 @@
 import {IconButton, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import {useAppSelector} from "../../../hooks/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 import {useDeleteBoardMutation, useLazyGetOneBoardQuery} from "../../../services/board.ts";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {categoryAction} from "../../../store/category/categorySlice.ts";
 
 export interface SimpleDialogProps {
   onCloseDrawer?: () => void;
 }
 
-const BoardsList = (props: SimpleDialogProps) => {
+const BoardsList = ({onCloseDrawer}: SimpleDialogProps) => {
+  const dispatch = useAppDispatch();
   const [getOneBoard] = useLazyGetOneBoardQuery()
   const [deleteBoard] = useDeleteBoardMutation()
-  const {onCloseDrawer} = props;
   const boardsList = useAppSelector(
     state => state.board.boardsList
   )
 
   const handleListItemClick = (id: string) => {
-    getOneBoard(id)
+    getOneBoard(id).then(result => {
+        if (result.data) {
+          dispatch(categoryAction.setCategories(result.data.sub_list))
+        }
+      }
+    )
     if (onCloseDrawer) onCloseDrawer();
   };
 
@@ -28,27 +34,27 @@ const BoardsList = (props: SimpleDialogProps) => {
     <>
       <List component="nav" aria-label="secondary mailbox folder">
         {boardsList?.map((board) => (
-            <ListItem
-              key={board.id}
-              sx={{paddingLeft: 2, paddingRight: 2}}
-              secondaryAction={
-                <IconButton
-                  edge="end" aria-label="delete"
-                  color={"error"}
-                  onClick={() => handelDelete(board.id)}
-                >
-                  <DeleteIcon/>
-                </IconButton>
-              }
-            >
-              <ListItemButton
-                onClick={() => handleListItemClick(board.id)}
-                dense
+          <ListItem
+            key={board.id}
+            sx={{paddingLeft: 2, paddingRight: 2}}
+            secondaryAction={
+              <IconButton
+                edge="end" aria-label="delete"
+                color={"error"}
+                onClick={() => handelDelete(board.id)}
               >
-                <ListItemText secondary={board.name}/>
-              </ListItemButton>
-            </ListItem>
-          ))}
+                <DeleteIcon/>
+              </IconButton>
+            }
+          >
+            <ListItemButton
+              onClick={() => handleListItemClick(board.id)}
+              dense
+            >
+              <ListItemText secondary={board.name}/>
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
     </>
   );

@@ -8,11 +8,14 @@ import CreateIconBtn from "./CreateIconBtn/CreateIconBtn.tsx";
 import {uiAction} from "../../../store/ui/ui_slice.ts";
 import {usePostBoardMutation} from "../../../services/board.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
+import {useCreateDefCategoriesMutation} from "../../../services/category.ts";
 
 const CreateBoard = () => {
   const dispatch= useAppDispatch();
   const navState=useAppSelector(state => state.ui.menuDrawer)
   const [postBoard] = usePostBoardMutation()
+  const [createDefCategory]=useCreateDefCategoriesMutation()
+
   const [active, setActive] = useState(false)
   const [boardTitle, setBoardTitle] = useState('');
 
@@ -24,6 +27,8 @@ const CreateBoard = () => {
     }
     if (active && e.currentTarget.ariaLabel === 'addBoard') {
       postBoard({id: boardId, name: boardTitle})
+      createDefCategory(boardId)
+      // dispatch(categoryAction.setCategories([]))
       setBoardTitle('')
     }
     if(active && navState){

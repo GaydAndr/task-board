@@ -7,6 +7,7 @@ import {useLazyGetAllBoardsQuery} from "./services/board.ts";
 import {Box} from "@mui/material";
 import {boardAction} from "./store/board/boardSlice.ts";
 import CreateBoard from "./components/Header/CreateBoard/CreateBoard.tsx";
+import {categoryAction} from "./store/category/categorySlice.ts";
 
 function App() {
   const [getAllBoards] = useLazyGetAllBoardsQuery()
@@ -15,21 +16,16 @@ function App() {
   const {currentBoard, boardsList} = useAppSelector(
     state => state.board
   )
-
   useEffect(() => {
     if (!currentBoard && !boardsList) {
       getAllBoards()
     }
-    if (!currentBoard && boardsList) {
+    if (!currentBoard && boardsList?.length) {
       dispatch(boardAction.setBoard(boardsList[0]))
+      dispatch(categoryAction.setCategories(boardsList[0].sub_list))
     }
-    // setBoartData()
   }, [boardsList])
 
-  // const setBoartData = () => {
-  //   dispatch(categoryAction.setCategory(currentBoard?.sud_list))
-  //   dispatch(taskAction.setTask(currentBoard?.tasks_list))
-  // }
 
   return (
     <>

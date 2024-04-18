@@ -22,13 +22,20 @@ export const boardApi = api.injectEndpoints({
           body
         }
       },
-      invalidatesTags: [{type: 'Board', id: 'LIST'}]
+      invalidatesTags: ['Board']
     }),
     getOneBoard: build.query<IBoard, string>({
       query: (boardId) => ({
         url: `board/${boardId}`
       }),
-      providesTags: ['Board']
+      providesTags: (result: IBoard | undefined ) =>
+        result
+          ? [
+             'Board',
+            ...result.sub_list.map(category => ({type: 'Category' as const, id: category.id}))
+          ]
+          : ['Board']
+      ,
     }),
     updateBoard: build.mutation<IBoard, PostBoard>({
       query({id, name}) {
@@ -38,7 +45,6 @@ export const boardApi = api.injectEndpoints({
           body: {name}
         }
       },
-
       invalidatesTags: ["Board"]
 
     }),
