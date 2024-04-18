@@ -30,7 +30,7 @@ export class SubListController {
     );
   }
 
-  @Post('createDefault/:id')
+  @Post('create-default/:id')
   createDefaultSubLists(@Param('id') id: string) {
     return this.subListService.createDefaultSubLists(id)
   }
