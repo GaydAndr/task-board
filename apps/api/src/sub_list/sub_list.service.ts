@@ -15,11 +15,6 @@ export class SubListService {
   }
 
   async create(createSubListDto: CreateSubListDto) {
-    // const isExist = await this.subListRepository.findBy({
-    // board: {id}
-    // name: createSubListDto.name
-    // })
-    // if (isExist) throw new BadRequestException('This name already exist')
 
     const newSubList = this.subListRepository.create({
       name: createSubListDto.name,
@@ -64,14 +59,41 @@ export class SubListService {
   async update(id: string, updateSubListDto: UpdateSubListDto) {
     this.validUUID(id)
     await this.isExist(id)
-    return await this.subListRepository.update(id, updateSubListDto);
+    await this.subListRepository.update(id, updateSubListDto);
+    return this.findOne(id)
   }
 
   async remove(id: string) {
     this.validUUID(id)
     await this.isExist(id)
     await this.subListRepository.delete(id);
-    return id
+    return {id}
+  }
+
+  async swapOrder(items: SubList[]) {
+    console.log(items)
+    if (items.length !== 2) {
+      throw new NotFoundException('You must provide exactly two items to swap.');
+    }
+    const item1 = await this.findOne(items[0].id)
+    const item2 = await this.findOne(items[1].id)
+    // const item1 = await this.subListRepository.findOne({
+    //   where: { id: items[0].id }
+    // });
+    // const item2 = await this.subListRepository.findOne({
+    //   where: { id: items[1].id }
+    // });
+
+    if (!item1 || !item2) {
+      throw new NotFoundException('One or both items not found');
+    }
+
+    const order1 = item1.order;
+    const order2 = item2.order;
+
+    await this.subListRepository.update(item1.id, {...item1, order: order2});
+    await this.subListRepository.update(item2.id, {...item2, order: order1});
+    return await this.findAll(item1.board.id)
   }
 
   async isExist(id: string) {

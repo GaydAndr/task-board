@@ -7,11 +7,12 @@ import {
   Param,
   Delete,
   UsePipes,
-  ValidationPipe,
+  ValidationPipe, Put,
 } from '@nestjs/common';
 import {SubListService} from './sub_list.service';
 import {CreateSubListDto} from './dto/create-sub_list.dto';
 import {UpdateSubListDto} from './dto/update-sub_list.dto';
+import {SubList} from "./entities/sub_list.entity";
 
 @Controller('sub-list')
 export class SubListController {
@@ -49,6 +50,15 @@ export class SubListController {
   update(@Param('id') id: string, @Body() updateSubListDto: UpdateSubListDto) {
     return this.subListService.update(id, updateSubListDto);
   }
+  @Put('swap-order')
+  swapOrder( @Body() updateSubListDto: SubList[]) {
+    return this.subListService.swapOrder( updateSubListDto);
+  }
+  // @Patch('swap-order')
+  // swapOrder(@Body() updateSubListDto: UpdateSubListDto){
+  //   console.log(123)
+  //   return this.subListService.swapOrder(updateSubListDto)
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

@@ -50,8 +50,7 @@ export class BoardService {
   async update(id: string, updateBoardDto: UpdateBoardDto) {
     this.validUUID(id)
     await this.isExist(id)
-
-    const updatedBoard = await this.boardRepository.update(id, updateBoardDto);
+    await this.boardRepository.update(id, updateBoardDto);
     return this.findOne(id)
   }
 
