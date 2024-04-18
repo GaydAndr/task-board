@@ -1,5 +1,6 @@
 import {IconButton, Tooltip} from "@mui/material";
-import {ReactElement, useState} from "react";
+import React, {ReactElement, useState} from "react";
+import {ICreateTooltipText} from "../../../types/types.ts";
 
 interface Props {
   ariaLabel: string
@@ -8,13 +9,12 @@ interface Props {
   children: ReactElement
   handleOnClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   type: 'submit' | 'button'
+  tooltipText:ICreateTooltipText
 }
 
-const tooltipText = {
-  TYPE_TITLE: 'Type any name of board',
-  ADD: 'Add board',
-  CANCEL: 'Cancel',
-}
+
+
+
 
 const CreateIconBtn = ({
                          ariaLabel,
@@ -22,7 +22,8 @@ const CreateIconBtn = ({
                          handleOnClick,
                          disabled = false,
                          children,
-                         type
+                         type,
+                         tooltipText
 }: Props) => {
   const [open, setOpen] = useState(false);
   const [tooltipTitle, setTooltipTitle] = useState(tooltipText.CANCEL)
@@ -32,10 +33,10 @@ const CreateIconBtn = ({
   };
 
   const handleOpen = () => {
-    if(disabled && ariaLabel ==='addBoard'){
+    if(disabled && ariaLabel.includes('add')){
       setTooltipTitle(tooltipText.TYPE_TITLE)
     }
-    else if(ariaLabel ==='addBoard') {
+    else if(ariaLabel.includes('add')) {
       setTooltipTitle(tooltipText.ADD)
     }
     else {
@@ -48,7 +49,8 @@ const CreateIconBtn = ({
       <Tooltip
         open={open}
         onClose={handleClose}
-        onOpen={handleOpen} title={tooltipTitle}
+        onOpen={handleOpen}
+        title={tooltipTitle}
         followCursor
       >
         <div>
@@ -57,7 +59,7 @@ const CreateIconBtn = ({
           color={iconColor}
           onClick={e=> handleOnClick(e)}
           disabled={disabled}
-          sx={{outline: 'none', padding: '10px 0'}}
+          sx={{outline: 'none', p:0}}
           type={type}
         >
           {children}

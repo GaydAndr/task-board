@@ -1,68 +1,53 @@
 import React, {useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
-import {categoryCreateNew} from "../../../store/category/categoryOperation.ts";
-import {Button, Stack, TextField} from "@mui/material";
+import {useAppSelector} from "../../../hooks/hooks.ts";
+import { Button} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import {usePostCategoryMutation} from "../../../services/category.ts";
+import {categoryTooltipText} from "../../../types/category.types.ts";
+import EditForm from "../../common/EditForm/EditForm.tsx";
 
 const CategoryAddNew = () => {
-  const dispatch = useAppDispatch()
-  const [active, setActive] = useState(false)
-  const [categoryTitle, setCategoryTitle] = useState('');
+  const [addNewCategory] = usePostCategoryMutation()
   const boardId = useAppSelector(
     state => state.board.currentBoard?.id
   )
 
-  const handleCreateClick = () => {
-    if (active && boardId) {
-      dispatch(categoryCreateNew({id: boardId, name: categoryTitle}))
+  const [active, setActive] = useState(false)
+  const [categoryName, setCategoryName] = useState('');
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    if (active && e.currentTarget.ariaLabel?.includes('add') && boardId) {
+      addNewCategory({boardId, name: categoryName})
+      setCategoryName('')
     }
+
     setActive(!active);
+    setCategoryName('')
+
   };
 
   return (
     <>
       {active ?
-        <Stack
-          direction={"row"}
-          component="form"
-          spacing={1}
-          sx={{
-            '& > :not(style)': {width: '15ch'},
-          }}
-
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            id="outlined-controlled"
-            label="Controlled"
-            value={categoryTitle}
-            size="small"
-
-
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCategoryTitle(event.target.value);
-            }}
-          />
-          <Button
-            variant="contained"
-            onClick={handleCreateClick}
-            size="small"
-          >
-            Create
-          </Button>
-        </Stack>
+        <EditForm
+          inputText={categoryName}
+          tooltipText={categoryTooltipText}
+          handleClick={handleClick}
+          setInputTex={setCategoryName}
+          addLabel={'addCategory'}
+        />
         :
         <Button
+          aria-label={'openForm'}
           variant="outlined"
-          disableElevation
           size="large"
           fullWidth
           sx={{
             color: "#232323",
-            borderStyle: 'dashed'
+            borderStyle: 'dashed',
           }}
-          onClick={handleCreateClick}
+          onClick={handleClick}
           startIcon={<AddIcon/>}
         >
           Create new category

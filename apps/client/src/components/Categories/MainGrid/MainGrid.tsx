@@ -14,7 +14,8 @@ const MainGrid = () => {
         sx={{
           overflowX: 'auto',
           overflowY: 'hidden',
-          pb: 2
+          pt:1
+          // pb: 2
         }}
         maxWidth={'95vw'}
 
