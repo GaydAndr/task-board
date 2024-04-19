@@ -55,6 +55,7 @@ const CategoryHeader = ({id, name, amount}: Prop) => {
           addLabel={'addNewName'}
           handleClick={handleClick}
           setInputTex={setCategoryName}
+          labelText={'Category name'}
         />
         :
         <>

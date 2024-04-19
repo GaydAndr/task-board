@@ -46,6 +46,7 @@ const CreateBoard = () => {
           handleClick={handleClick}
           setInputTex={setBoardTitle}
           addLabel={'addBoard'}
+          labelText={'Add Board'}
           />
         :
         <Button

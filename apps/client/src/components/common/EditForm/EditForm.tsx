@@ -11,10 +11,10 @@ interface Prop {
   handleClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   setInputTex: (event: string) => void
   addLabel: string
+  labelText: string
 }
 
-const EditForm = ({inputText, tooltipText, handleClick, setInputTex, addLabel}: Prop) => {
-
+const EditForm = ({inputText, tooltipText, handleClick, setInputTex, addLabel, labelText}: Prop) => {
   return (
     <>
       <Stack
@@ -25,11 +25,10 @@ const EditForm = ({inputText, tooltipText, handleClick, setInputTex, addLabel}: 
         noValidate
         autoComplete="off"
         alignItems={"center"}
-
       >
         <TextField
           id="outlined-controlled"
-          label={inputText}
+          label={labelText}
           value={inputText}
           size="small"
           autoFocus

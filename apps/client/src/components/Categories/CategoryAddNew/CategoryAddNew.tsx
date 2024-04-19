@@ -36,6 +36,7 @@ const CategoryAddNew = () => {
           handleClick={handleClick}
           setInputTex={setCategoryName}
           addLabel={'addCategory'}
+          labelText={'Category name'}
         />
         :
         <Button
