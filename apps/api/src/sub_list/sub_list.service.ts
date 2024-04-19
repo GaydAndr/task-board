@@ -71,18 +71,11 @@ export class SubListService {
   }
 
   async swapOrder(items: SubList[]) {
-    console.log(items)
     if (items.length !== 2) {
       throw new NotFoundException('You must provide exactly two items to swap.');
     }
     const item1 = await this.findOne(items[0].id)
     const item2 = await this.findOne(items[1].id)
-    // const item1 = await this.subListRepository.findOne({
-    //   where: { id: items[0].id }
-    // });
-    // const item2 = await this.subListRepository.findOne({
-    //   where: { id: items[1].id }
-    // });
 
     if (!item1 || !item2) {
       throw new NotFoundException('One or both items not found');
