@@ -22,7 +22,7 @@ export const categoryApi = api.injectEndpoints({
       invalidatesTags: ['Category']
     }),
     postCategory: build.mutation<ICategory, PostCategory>({
-      query({boardId, name:categoryName}: PostCategory) {
+      query({boardId, name: categoryName}: PostCategory) {
         return {
           url: `sub-list/`,
           method: 'POST',
@@ -31,7 +31,7 @@ export const categoryApi = api.injectEndpoints({
       },
       invalidatesTags: ['Category']
     }),
-    updateCategory: build.mutation<ICategory, any>({
+    updateCategory: build.mutation<ICategory, { id: string, name: string }>({
       query({id, name}) {
         return {
           url: `sub-list/${id}`,
@@ -50,15 +50,20 @@ export const categoryApi = api.injectEndpoints({
       },
       invalidatesTags: ['Category']
     }),
-    swapOrder: build.mutation<any,any>({
+    swapOrder: build.mutation<ICategory[], ICategory[]>({
       query(body) {
-        return{
+        return {
           url: 'sub-list/swap-order',
           method: 'PUT',
           body
         }
       },
-      invalidatesTags:['Category']
+      transformResponse: (response: ICategory[]) => (
+        response.sort(
+          (a, b) => a.order - b.order
+        )
+      ),
+      invalidatesTags: ['Category']
     })
   })
 })

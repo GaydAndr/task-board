@@ -5,9 +5,10 @@ import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutli
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
-import {useDeleteCategoryMutation} from "../../../services/category.ts";
-import {useAppDispatch} from "../../../hooks/hooks.ts";
+import {useDeleteCategoryMutation, useSwapOrderMutation} from "../../../services/category.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 import {uiAction} from "../../../store/ui/ui_slice.ts";
+import getNeighbor from "../../../hooks/useGetNeighbor.ts";
 
 
 interface Prop {
@@ -16,25 +17,42 @@ interface Prop {
 
 const CategoryMenu = ({id}: Prop) => {
   const dispatch = useAppDispatch();
+  const categoryList = useAppSelector(state => state.category.categoryList)
   const [deleteCategory] = useDeleteCategoryMutation()
+  const [swapOrder]=useSwapOrderMutation()
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleDelete = () => {
     deleteCategory(id)
-    setAnchorEl(null);
+    handleClose()
   };
 
   const handleEdit = () => {
     dispatch(uiAction.toggleCategoryInp({id,value: true}))
-    setAnchorEl(null);
+    handleClose()
   };
+
+  const handelMove = (e: React.MouseEvent<HTMLLIElement, MouseEvent> )=>{
+    if(e.currentTarget.ariaLabel?.includes('left')){
+      const swapLeft = getNeighbor(categoryList,id,'left')
+      swapLeft?  swapOrder(swapLeft): null
+    }
+    if(e.currentTarget.ariaLabel?.includes('right')){
+      const swapRight = getNeighbor(categoryList,id,'right')
+      swapRight? swapOrder(swapRight): null
+    }
+    handleClose()
+  }
 
 
   return (
@@ -64,17 +82,17 @@ const CategoryMenu = ({id}: Prop) => {
           </ListItemIcon>
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={(e)=>handelMove(e)} aria-label={'move-right'}>
           <ListItemIcon>
             <EastIcon color={'success'}/>
           </ListItemIcon>
-          Right
+          Move right
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={(e)=>handelMove(e)} aria-label={'move-left'}>
           <ListItemIcon>
             <WestIcon color={'success'}/>
           </ListItemIcon>
-         Left
+         Move left
         </MenuItem>
         <MenuItem onClick={handleDelete}  >
           <ListItemIcon >
