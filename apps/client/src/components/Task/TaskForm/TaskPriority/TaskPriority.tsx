@@ -9,7 +9,7 @@ const TaskPriority = ({name}: { name: string }) => {
   };
   return (
     <FormControl sx={{m: 1, minWidth: 120}} size="small">
-      <InputLabel id="demo-select-small-label">Age</InputLabel>
+      <InputLabel id="demo-select-small-label">Priority</InputLabel>
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"

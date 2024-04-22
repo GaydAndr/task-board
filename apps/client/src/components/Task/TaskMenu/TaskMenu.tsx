@@ -3,16 +3,27 @@ import React, {useState} from "react";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {useDeleteTaskMutation} from "../../../services/task.ts";
 
+interface Props {
+  taskId: string
+}
 
-const TaskMenu = () => {
+const TaskMenu = ({taskId}: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl);
+
+  const [deleteTask]= useDeleteTaskMutation()
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+    deleteTask(taskId)
   };
   return (
     <>
@@ -41,9 +52,9 @@ const TaskMenu = () => {
           </ListItemIcon>
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleDelete}>
           <ListItemIcon>
-            <DeleteOutlineIcon />
+            <DeleteOutlineIcon/>
           </ListItemIcon>
           Delete
         </MenuItem>

@@ -3,7 +3,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
-import { updateCardStatus} from "../../../store/card/cardOperation.ts";
 // import {getBoard} from "../../../../store/board/boardOperation.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -65,7 +64,7 @@ const TaskMoveTo = ({id}: { id: string }) => {
   };
   const moveTo = (status: string) => {
     handleClose();
-    dispatch(updateCardStatus({id, "status": status}))
+    // dispatch(updateCardStatus({id, "status": status}))
     // dispatch(getBoard(id))
   };
 

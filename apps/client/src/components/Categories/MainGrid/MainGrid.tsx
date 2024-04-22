@@ -1,11 +1,11 @@
 import {Box, Container} from "@mui/material";
 import Categories from "../Categories.tsx";
 import Grid from '@mui/material/Unstable_Grid2';
-import { useAppSelector} from "../../../hooks/hooks.ts";
+import {useAppSelector} from "../../../hooks/hooks.ts";
 import CategoryAddNew from "../CategoryAddNew/CategoryAddNew.tsx";
 
 const MainGrid = () => {
-  const categoryList=useAppSelector(state => state.category.categoryList)
+  const categoryList = useAppSelector(state => state.category.categoryList)
 
   return (
     <Container maxWidth={"xl"}>
@@ -14,7 +14,7 @@ const MainGrid = () => {
         sx={{
           overflowX: 'auto',
           overflowY: 'hidden',
-          pt:1
+          pt: 1
           // pb: 2
         }}
         maxWidth={'95vw'}
@@ -26,7 +26,7 @@ const MainGrid = () => {
           spacing={2}
         >
           {
-            categoryList?.map(category=>(
+            categoryList?.map(category => (
               <Grid
                 key={category.id}
                 xs={10}
@@ -46,7 +46,6 @@ const MainGrid = () => {
             md={3}
             minWidth={300}
           >
-            {/*<AddCategoryTT/>*/}
             <CategoryAddNew/>
           </Grid>
         </Grid>

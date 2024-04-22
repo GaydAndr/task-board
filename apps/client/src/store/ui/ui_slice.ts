@@ -3,7 +3,9 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 interface IUIState {
   menuDrawer: boolean
   historyDrawer: boolean
-  cardForm: boolean
+  taskForm: {
+    [key: string]: boolean
+  }
   categoryInput: {
     [key: string]: boolean
   }
@@ -12,7 +14,7 @@ interface IUIState {
 const initialState: IUIState = {
   menuDrawer: false,
   historyDrawer: false,
-  cardForm: false,
+  taskForm: {},
   categoryInput: {}
 }
 
@@ -23,8 +25,13 @@ const uiSlice = createSlice({
     toggleHistory: (state, {payload}: PayloadAction<boolean>) => {
       state.historyDrawer = payload
     },
-    toggleCardForm: (state, {payload}: PayloadAction<boolean>) => {
-      state.cardForm = payload
+    toggleTaskForm: (state, {payload}: PayloadAction<{ id?: string, value?: boolean }>) => {
+      const {id, value} = payload;
+      if (id && value) {
+        state.taskForm = {[id]: value};
+        return
+      }
+      state.taskForm = {}
     },
     toggleMenu: (state, {payload}: PayloadAction<boolean>) => {
       state.menuDrawer = payload

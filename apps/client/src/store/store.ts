@@ -13,7 +13,7 @@ import storage from "redux-persist/lib/storage";
 import uiSlice from "./ui/ui_slice.ts";
 import boardSlice from "./board/boardSlice.ts";
 import categorySlice from "./category/categorySlice.ts";
-import taskSlice from "./card/cardSlice.ts";
+import taskSlice from "./task/taskSlice.ts";
 import {api} from "../services/api.ts";
 
 

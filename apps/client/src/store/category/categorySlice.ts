@@ -15,7 +15,6 @@ const categorySlice = createSlice({
       state.categoryList = payload
     },
     setCurrentCategory: (state, {payload}) => {
-      console.log(12)
       state.currentCategory = payload
     },
     removeCurrentCategory: (state) => {
@@ -42,9 +41,6 @@ const categorySlice = createSlice({
     builder.addMatcher(
       categoryApi.endpoints.deleteCategory.matchFulfilled, (state, {payload}) => {
         state.categoryList = state.categoryList?.filter((category) => category.id !== payload.id)
-        // if (payload.id === state.currentBoard?.id) {
-        //   state.currentBoard = null
-        // }
       }
     )
     builder.addMatcher(
@@ -56,7 +52,6 @@ const categorySlice = createSlice({
     )
     builder.addMatcher(
       categoryApi.endpoints.swapOrder.matchFulfilled, (state, {payload}) => {
-        console.log(payload)
         state.categoryList = payload
       }
     )

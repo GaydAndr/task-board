@@ -8,6 +8,7 @@ import {Box} from "@mui/material";
 import {boardAction} from "./store/board/boardSlice.ts";
 import CreateBoard from "./components/Header/CreateBoard/CreateBoard.tsx";
 import {categoryAction} from "./store/category/categorySlice.ts";
+import {taskAction} from "./store/task/taskSlice.ts";
 
 function App() {
   const [getAllBoards] = useLazyGetAllBoardsQuery()
@@ -23,6 +24,7 @@ function App() {
     if (!currentBoard && boardsList?.length) {
       dispatch(boardAction.setBoard(boardsList[0]))
       dispatch(categoryAction.setCategories(boardsList[0].sub_list))
+      dispatch(taskAction.setTask(boardsList[0].tasks_list))
     }
   }, [boardsList])
 

@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 import {useDeleteBoardMutation, useLazyGetOneBoardQuery} from "../../../services/board.ts";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {categoryAction} from "../../../store/category/categorySlice.ts";
+import {taskAction} from "../../../store/task/taskSlice.ts";
 
 export interface SimpleDialogProps {
   onCloseDrawer?: () => void;
@@ -20,6 +21,7 @@ const BoardsList = ({onCloseDrawer}: SimpleDialogProps) => {
     getOneBoard(id).then(result => {
         if (result.data) {
           dispatch(categoryAction.setCategories(result.data.sub_list))
+          dispatch(taskAction.setTask(result.data.tasks_list))
         }
       }
     )

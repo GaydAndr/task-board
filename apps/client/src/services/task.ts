@@ -1,30 +1,32 @@
 import {api} from "./api.ts";
+import {IPostTask, ITask} from "../types/task.types.ts";
 
 export const taskApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getAllTask: build.query<any, string>({
+    getAllTask: build.query<ITask[], string>({
       query(boardId) {
         return {
           url: `task/all/${boardId}`
         }
       },
-      providesTags:[]
+      providesTags:['Task']
     }),
-    getOneTask:build.query<any, any>({
+    getOneTask:build.query<ITask, any>({
       query() {
         return {
           url: `task`
         }
       },
     }),
-    postTask:build.mutation<any, any>({
-      query() {
+    postTask:build.mutation<ITask, IPostTask>({
+      query(body) {
         return {
           url: `task`,
-          method: 'POST'
+          method: 'POST',
+          body
         }
       },
-      invalidatesTags:[]
+      invalidatesTags:['Task']
     }),
     updateTask:build.mutation<any, string>({
       query(taskId) {
@@ -33,16 +35,24 @@ export const taskApi = api.injectEndpoints({
           method: 'PATCH'
         }
       },
-      invalidatesTags:[]
+      invalidatesTags:['Task']
     }),
-    deleteTask:build.mutation<any, string>({
+    deleteTask:build.mutation<{ id: string }, string>({
       query(taskId) {
         return {
           url: `task/${taskId}`,
           method: 'DELETE'
         }
       },
-      invalidatesTags:[]
+      invalidatesTags:['Task']
     }),
   })
 })
+
+export const {
+  useLazyGetAllTaskQuery,
+  useLazyGetOneTaskQuery,
+  usePostTaskMutation,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation
+} = taskApi

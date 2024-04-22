@@ -9,7 +9,7 @@ const TaskDatePicker = ({name}: {name: string}) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-        label="Controlled picker"
+        label="Deadline"
         value={value}
         onChange={(newValue) => setValue(newValue)}
         name={name}

@@ -18,9 +18,9 @@ const Categories = (prop: Prop) => {
 
   return (
     <>
-      <TaskForm/>
+      <TaskForm id={prop.id}/>
       <CategoryHeader {...prop}/>
-      <TaskAddNew name={prop.name}/>
+      <TaskAddNew categoryName={prop.name} categoryId={prop.id}/>
       <Stack
         maxHeight={'70vh'}
         overflow={"auto"}
@@ -29,7 +29,6 @@ const Categories = (prop: Prop) => {
         pr={2}
       >
         {boardTask?.filter(task => task.status === prop.name).map(task => (
-
           <TaskCard key={task.id} dataTask={task}/>
         ))}
       </Stack>

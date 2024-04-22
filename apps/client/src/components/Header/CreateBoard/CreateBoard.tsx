@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
 import {useCreateDefCategoriesMutation} from "../../../services/category.ts";
 import EditForm from "../../common/EditForm/EditForm.tsx";
 import {boardTooltipText} from "../../../types/board.types.ts";
+import {taskAction} from "../../../store/task/taskSlice.ts";
 
 const CreateBoard = () => {
   const dispatch= useAppDispatch();
@@ -29,6 +30,7 @@ const CreateBoard = () => {
     if (active && e.currentTarget.ariaLabel === 'addBoard') {
       postBoard({id: boardId, name: boardTitle})
       createDefCategory(boardId)
+      dispatch(taskAction.setTask([]))
       setBoardTitle('')
     }
     if(active && navState){

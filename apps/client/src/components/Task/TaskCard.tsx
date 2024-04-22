@@ -3,11 +3,11 @@ import TaskMenu from "./TaskMenu/TaskMenu.tsx";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import TaskMoveTo from "./TaskMoveTo/TaskMoveTo.tsx";
-import {ITaskResponse} from "../../types/types.ts";
 import dayjs from 'dayjs';
+import {ITask} from "../../types/task.types.ts";
 
 interface Prop{
-  dataTask:ITaskResponse
+  dataTask: ITask
 }
 const TaskCard = ({dataTask}:Prop) => {
   return (
@@ -20,9 +20,9 @@ const TaskCard = ({dataTask}:Prop) => {
     >
       <CardHeader
         action={
-          <TaskMenu/>
+          <TaskMenu taskId={dataTask.id}/>
         }
-        title={dataTask.task_name}
+        title={dataTask.name}
         sx={{
           textAlign: 'left'
         }}
