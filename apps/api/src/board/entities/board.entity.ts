@@ -14,7 +14,7 @@ export class Board {
   name: string
 
   @OneToMany(
-    type => History,
+    () => History,
     history => history.board,
     {onDelete: "CASCADE"}
   )

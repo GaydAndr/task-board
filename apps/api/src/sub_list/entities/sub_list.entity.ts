@@ -25,7 +25,7 @@ export class SubList {
   @OneToMany(
     ()=> Task,
     (task)=>task.sub_list,
-    {onDelete:'CASCADE'}
+    {onDelete:'CASCADE', eager: true}
   )
   @JoinColumn({name: 'task_id'})
   task: Task

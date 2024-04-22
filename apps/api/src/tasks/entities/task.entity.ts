@@ -10,7 +10,8 @@ export class Task {
 
   @ManyToOne(
     () => Board,
-    (board) => board.tasks_list
+    (board) => board.tasks_list,
+    {onDelete: "CASCADE"}
   )
   @JoinColumn({name: 'board_id'})
   board: Board
@@ -18,6 +19,7 @@ export class Task {
   @ManyToOne(
     ()=>SubList,
     (subList) => subList.task,
+    {onDelete: "CASCADE"}
   )
   @JoinColumn({name: 'sub_list_id'})
   sub_list: SubList

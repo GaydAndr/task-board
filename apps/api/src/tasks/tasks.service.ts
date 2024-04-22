@@ -46,7 +46,7 @@ export class TasksService {
     return await this.taskRepository.findOne({
       where: {id},
       relations: {
-        // history: true,
+        history: true,
         // board: true
       }
     })
@@ -56,14 +56,14 @@ export class TasksService {
     this.validUUID(id)
     await this.isExist(id)
     await this.taskRepository.update(id, updateTaskDto);
-    return 200
+    return this.findOne(id)
   }
 
   async remove(id: string) {
     this.validUUID(id)
     await this.isExist(id)
     await this.taskRepository.delete(id);
-    return id;
+    return {id};
   }
 
   async isExist(id: string) {
