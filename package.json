@@ -15,10 +15,9 @@
   ],
   "dependencies": {
     "@nestjs/mapped-types": "*",
-    "axios": "^1.6.8",
-    "turbo-windows-64": "^1.13.0"
+    "axios": "^1.6.8"
   },
   "devDependencies": {
-    "turbo": "^1.13.0"
+    "turbo": "^1.13.2"
   }
 }
