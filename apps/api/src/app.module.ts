@@ -14,7 +14,6 @@ import { SubListModule } from './sub_list/sub_list.module';
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../..', 'client', 'dist'),
-      exclude: ['api/*']
     }),
     BoardModule,
     TasksModule,
