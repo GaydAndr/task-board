@@ -7,7 +7,7 @@
   "description": "",
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build  --output public",
+    "build": "turbo run build",
     "start": "node apps/api/dist/main"
   },
   "workspaces": [
