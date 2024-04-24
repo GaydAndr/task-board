@@ -13,7 +13,8 @@ import { SubListModule } from './sub_list/sub_list.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../..', 'client', 'dist')
+      rootPath: join(__dirname, '../..', 'client', 'dist'),
+      exclude: ['api/*']
     }),
     BoardModule,
     TasksModule,
