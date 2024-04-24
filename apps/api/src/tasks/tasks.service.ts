@@ -9,7 +9,7 @@ import {validate as isValidUUID} from 'uuid'
 
 @Injectable()
 export class TasksService {
-  constructor( 
+  constructor(
     @InjectRepository(Task)
     private taskRepository: Repository<Task>
   ) {
@@ -22,7 +22,7 @@ export class TasksService {
       priority: createTaskDto.priority,
       due_date: createTaskDto.due_date,
       description: createTaskDto.description,
-      board:createTaskDto.board
+      board: createTaskDto.board
     })
     return await this.taskRepository.save(newTask);
   }
@@ -33,7 +33,7 @@ export class TasksService {
       where: {
         board: {id}
       },
-      relations:{
+      relations: {
         // board:true,
         // history:true
       }
@@ -56,7 +56,9 @@ export class TasksService {
     this.validUUID(id)
     await this.isExist(id)
     await this.taskRepository.update(id, updateTaskDto);
-    return this.findOne(id)
+    return await this.taskRepository.findOne({
+      where: {id}
+    })
   }
 
   async remove(id: string) {

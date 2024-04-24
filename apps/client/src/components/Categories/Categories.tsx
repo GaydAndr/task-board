@@ -4,6 +4,7 @@ import {Stack} from "@mui/material";
 import {useAppSelector} from "../../hooks/hooks.ts";
 import TaskForm from "../Task/TaskForm/TaskForm.tsx";
 import TaskCard from "../Task/TaskCard.tsx";
+import {useEffect, useState} from "react";
 
 interface Prop {
   id: string
@@ -16,10 +17,17 @@ const Categories = (prop: Prop) => {
     state => state.task.taskList
   )
 
+  const [amountTask, setAmountTask] = useState(0)
+  const filteredTasks = boardTask?.filter(task => task.status === prop.name);
+
+  useEffect(() => {
+    setAmountTask(filteredTasks.length);
+  }, [filteredTasks]);
+
   return (
     <>
       <TaskForm id={prop.id}/>
-      <CategoryHeader {...prop}/>
+      <CategoryHeader id={prop.id} name={prop.name} amount={amountTask}/>
       <TaskAddNew categoryName={prop.name} categoryId={prop.id}/>
       <Stack
         maxHeight={'70vh'}
@@ -28,9 +36,10 @@ const Categories = (prop: Prop) => {
         pl={1}
         pr={2}
       >
-        {boardTask?.filter(task => task.status === prop.name).map(task => (
-          <TaskCard key={task.id} dataTask={task}/>
-        ))}
+        {filteredTasks.map(task => (
+            <TaskCard key={task.id} dataTask={task}/>
+          )
+        )}
       </Stack>
     </>
   );

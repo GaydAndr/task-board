@@ -67,7 +67,7 @@ const CategoryHeader = ({id, name, amount}: Prop) => {
           </Typography>
         </>
       }
-      <CategoryMenu id={id}/>
+      <CategoryMenu id={id} amount={amount}/>
     </Stack>
   );
 };

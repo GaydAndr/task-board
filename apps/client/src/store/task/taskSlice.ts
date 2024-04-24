@@ -48,8 +48,7 @@ const taskSlice = createSlice({
     )
     builder.addMatcher(
       taskApi.endpoints.updateTask.matchFulfilled, (state, {payload}) => {
-        // state.taskList.push(payload)
-        console.log(payload)
+        state.taskList = state.taskList.map(obj => obj.id === payload.id ? payload : obj)
       }
     )
     // builder.addCase(deleteTask.fulfilled, (state, action) => {

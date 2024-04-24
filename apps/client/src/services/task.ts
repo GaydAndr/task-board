@@ -28,11 +28,12 @@ export const taskApi = api.injectEndpoints({
       },
       invalidatesTags:['Task']
     }),
-    updateTask:build.mutation<any, string>({
-      query(taskId) {
+    updateTask:build.mutation<ITask, any>({
+      query({id, body}) {
         return {
-          url: `task/${taskId}`,
-          method: 'PATCH'
+          url: `task/${id}`,
+          method: 'PATCH',
+          body
         }
       },
       invalidatesTags:['Task']

@@ -2,7 +2,8 @@ import {styled, alpha} from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Button, Menu, MenuItem, MenuProps} from "@mui/material";
 import React, {useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../hooks/hooks.ts";
+import {useAppSelector} from "../../../hooks/hooks.ts";
+import {useUpdateTaskMutation} from "../../../services/task.ts";
 // import {getBoard} from "../../../../store/board/boardOperation.ts";
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -48,11 +49,11 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-const TaskMoveTo = ({id}: { id: string }) => {
-  const dispatch = useAppDispatch()
+const TaskMoveTo = ({id, title}: { id: string, title: string }) => {
   const {categoryList} = useAppSelector(
     state => state.category
   )
+  const [changeStatus] = useUpdateTaskMutation()
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -64,10 +65,8 @@ const TaskMoveTo = ({id}: { id: string }) => {
   };
   const moveTo = (status: string) => {
     handleClose();
-    // dispatch(updateCardStatus({id, "status": status}))
-    // dispatch(getBoard(id))
+    changeStatus({id, body: {status}})
   };
-
   return (
     <>
       <Button
@@ -97,10 +96,16 @@ const TaskMoveTo = ({id}: { id: string }) => {
       >
         {
           categoryList?.map(el => (
-            <MenuItem key={el.id} onClick={() => moveTo(el.name)} disableRipple>
-              {el.name}
-            </MenuItem>
-          ))
+              <MenuItem
+                key={el.id}
+                onClick={() => moveTo(el.name)}
+                disableRipple
+                disabled={title === el.name}
+              >
+                {el.name}
+              </MenuItem>
+            )
+          )
         }
 
       </StyledMenu>

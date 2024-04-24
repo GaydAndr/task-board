@@ -13,9 +13,10 @@ import getNeighbor from "../../../hooks/useGetNeighbor.ts";
 
 interface Prop {
   id: string
+  amount: number
 }
 
-const CategoryMenu = ({id}: Prop) => {
+const CategoryMenu = ({id, amount}: Prop) => {
   const dispatch = useAppDispatch();
   const categoryList = useAppSelector(state => state.category.categoryList)
   const [deleteCategory] = useDeleteCategoryMutation()
@@ -94,7 +95,7 @@ const CategoryMenu = ({id}: Prop) => {
           </ListItemIcon>
          Move left
         </MenuItem>
-        <MenuItem onClick={handleDelete}  >
+        <MenuItem onClick={handleDelete} disabled={!!amount} >
           <ListItemIcon >
             <DeleteOutlineIcon color={'error'}/>
           </ListItemIcon>
