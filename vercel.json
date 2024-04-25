@@ -1,14 +1,22 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ],
+  "version": 2,
   "builds": [
     {
-      "src": "/apps/api",
+      "src": "/apps/api/src/main.ts",
       "use": "@versel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/apps/api/src/main.ts",
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ]
     }
   ]
 }
