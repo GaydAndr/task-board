@@ -29,7 +29,6 @@ import { SubListModule } from './sub_list/sub_list.module';
         database: configService.get('DB_NAME'),
         synchronize: true,
         autoLoadEntities:true
-        // entities: [__dirname + '/**/*.entity{.js, .ts']
       }),
       inject: [ConfigService]
     }),
